@@ -1,27 +1,43 @@
-<script>
+<script lang="ts">
+    // import Shopping from "../../components/shopping.cart.svelte";
+    
+    let valueNull = ''
+
+    const handleOpenMenu = () => {
+        let menuContent = document.querySelector(".menu")
+
+        menuContent?.classList.toggle("hidden")
+        // console.log("open menu burguer")
+    }
 
     const handleSuggestions = () => {
         console.log("listening onclick event!")
         // alert("hello world")
     }
-</script>
 
+    const handleSearch = (event:any) => {
+        const data = event.target.value
+        console.log(data)
+
+        window.alert(data)
+    }
+
+</script>
 <div class="min-h-screen bg-gray-50 pb-10">
     <!-- Navigation -->
     <div class="mx-auto">
       <!-- mobile navigation -->
       <div class="flex items-center justify-between bg-white px-4 py-6">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-600">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-600"
+        on:click={handleOpenMenu}
+        >
           <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
         <div class="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 rounded-full text-gray-600 outline outline-1 outline-offset-8 outline-gray-200">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-          </svg>
           <img class="ml-6 h-9 w-9 rounded-full object-cover" src="https://th.bing.com/th/id/R.35161660261a07e85fbe992640402ee5?rik=LNTU1CFpFCmdTw&pid=ImgRaw&r=0" alt="profile" />
         </div>
       </div>
-      <nav class="hidden">
+      <nav class="hidden menu">
         <a href="">
           <img src="" alt="" />
           Nuegas
@@ -59,13 +75,9 @@
           </li>
         </ul>
       </nav>
-      <!-- Box Alert -->
-      <div class="hidden">
-        <img src="" alt="" />
-        <h2>Help Center</h2>
-        <p>Having Trouble in Learning. Please contact us for more questions.</p>
-      </div>
       <!-- End -->
+
+
       <!-- Main -->
       <main class="">
         <div class="bg-white px-4">
@@ -73,7 +85,13 @@
             <h2 class="text-2xl font-semibold text-gray-900">Explora el menú</h2>
             <div class="flex items-center justify-between">
               <div class="my-6 mr-4 flex w-full items-center justify-between rounded-lg border px-3 py-3 sm:w-[350px] sm:flex-initial">
-                <input class="w-full text-sm outline-none" type="text" placeholder="Buscar..." />
+                <input 
+                class="w-full text-sm outline-none" 
+                type="text" 
+                placeholder="Buscar..."
+                bind:value={valueNull}
+                on:change={handleSearch}
+                />
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-6 text-gray-400">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
@@ -86,12 +104,6 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
                   </svg>
                   <span class="hidden sm:block">Surgerencias de la AI</span>
-                </div>
-                <div class="hidden md:block">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
-                  </svg>
-                  <span>Sort By : Popular</span>
                 </div>
               </div>
             </div>
@@ -123,10 +135,11 @@
                   <span class="block text-xs font-normal text-gray-500"></span>
                 </div>
               </div>
-                            <!-- button show product here -->
-              <button
+            
+              <!-- button show product here -->
+              <a
                 class="inline-block rounded-full border border-indigo-600 bg-indigo-600 p-3 text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-                on:click={()=> console.log("listening click")}
+                href="/inicio/shopping"
                 >
                 <svg
                     class="h-5 w-5 rtl:rotate-180"
@@ -142,7 +155,7 @@
                     d="M14 5l7 7m0 0l-7 7m7-7H3"
                     />
                 </svg>
-            </button>
+            </a>
             </div>
              <!-- close best awards products -->
 
@@ -239,12 +252,6 @@
                 Es para esos momentos en los que necesitas un capricho indulgente, cuando el mundo se mueve demasiado rápido y tú solo quieres detenerte un instante. Así que, ¿por qué no te sumerges en esta maravilla de sabor? 🍫☕
               </p>
               <div class="mt-6 flex items-center justify-between text-sm font-semibold text-gray-900">
-                <div class="flex">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-2 h-5 w-5 text-base text-gray-500">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
-                  </svg>
-                  <span class="mr-1">40</span> Task
-                </div>
                 <div class="flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-1 h-5 w-6 text-yellow-500">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
@@ -253,25 +260,42 @@
                 </div>
               </div>
             </div>
-            <div class="mb-6 rounded-lg bg-white p-6">
+            
+                      <div class="mb-6 rounded-lg bg-white p-6">
               <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                  <img class="mr-2 h-10 w-10 rounded-full object-cover" src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="profile" />
+                    <img class="mr-2 h-10 w-10 rounded-full object-cover" src="https://th.bing.com/th/id/R.84d84462dd556d362a5902e1cd7c2f07?rik=Zd5vFPFPJ2uFKg&pid=ImgRaw&r=0" alt="product" />
                   <div>
-                    <h3 class="text-base font-semibold text-gray-900">Richard Kyle</h3>
-                    <span class="block text-xs font-normal text-gray-500">2D Design</span>
+                    <h3 class="text-base font-semibold text-gray-900">Descafeinado</h3>
+                    <!-- <span class="block text-xs font-normal text-gray-500">Android Developer</span> -->
                   </div>
                 </div>
-                <p class="text-sm font-medium text-indigo-500"><span class="mr-0.5">+</span>Follow</p>
-              </div>
-              <p class="my-6 text-sm font-normal text-gray-500">Hi, I'm Antoine Griezmann. I'm an Android Developer at Google company . . .</p>
+                <!-- button show product here -->
+                <button
+                class="inline-block rounded-full border border-indigo-600 bg-indigo-600 p-3 text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
+                on:click={()=> console.log("listening click")}
+                >
+                <svg
+                    class="h-5 w-5 rtl:rotate-180"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                </svg>
+            </button>
+
+            </div>
+              <p class="my-6 text-sm font-normal text-gray-500">
+                Es para esos momentos en los que necesitas un capricho indulgente, cuando el mundo se mueve demasiado rápido y tú solo quieres detenerte un instante. Así que, ¿por qué no te sumerges en esta maravilla de sabor? 🍫☕
+              </p>
               <div class="mt-6 flex items-center justify-between text-sm font-semibold text-gray-900">
-                <div class="flex">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-2 h-5 w-5 text-base text-gray-500">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
-                  </svg>
-                  <span class="mr-1">40</span> Task
-                </div>
                 <div class="flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-1 h-5 w-6 text-yellow-500">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
@@ -280,6 +304,7 @@
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
       </main>
